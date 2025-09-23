@@ -1,7 +1,7 @@
 import { motion, useAnimation } from "framer-motion";
 import { useRef, useEffect } from "react";
 import { useInView } from "framer-motion";
-import img8 from "../assets/8.jpg";
+import bannerImg from "../assets/8.webp"; // Use optimized local WebP image
 
 const Banner = () => {
   const controls = useAnimation();
@@ -9,11 +9,8 @@ const Banner = () => {
   const inView = useInView(ref, { margin: "-100px" });
 
   useEffect(() => {
-    if (inView) {
-      controls.start("visible");
-    } else {
-      controls.start("hidden");
-    }
+    if (inView) controls.start("visible");
+    else controls.start("hidden");
   }, [controls, inView]);
 
   const textVariant = {
@@ -24,11 +21,12 @@ const Banner = () => {
   return (
     <section
       ref={ref}
-      className="relative h-[60vh] flex items-center bg-cover bg-center"
-      style={{ backgroundImage: `url(${img8})` }}
+      role="banner"
+      className="relative h-[60vh] flex items-center bg-cover bg-center bg-fixed"
+      style={{ backgroundImage: `url(${bannerImg})` }}
     >
       {/* Gradient Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-transparent"></div>
+      <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-transparent pointer-events-none" />
 
       {/* Content */}
       <motion.div

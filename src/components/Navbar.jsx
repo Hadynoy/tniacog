@@ -1,25 +1,27 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Menu, X } from "lucide-react";
-import { Link } from "react-router-dom"; // ✅ Link for client-side routing
+import { Link } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
+
+const navLinks = [
+  { name: "Home", to: "/" },
+  { name: "About Us", to: "/about" },
+  { name: "Services", to: "/services" },
+  { name: "Sermons", to: "/sermons" },
+  { name: "Gallery", to: "/gallery" },
+  { name: "Contact", to: "/contact" },
+];
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
-  const navLinks = [
-    { name: "Home", to: "/" },
-    { name: "About Us", to: "/about" },
-    { name: "Services", to: "/services" },
-    { name: "Sermons", to: "/sermons" },
-    { name: "Gallery", to: "/gallery" },
-    { name: "Contact", to: "/contact" },
-  ];
+  const handleScroll = useCallback(() => setScrolled(window.scrollY > 50), []);
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 50);
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [handleScroll]);
 
   const half = Math.ceil(navLinks.length / 2);
   const leftLinks = navLinks.slice(0, half);
@@ -96,37 +98,44 @@ const Navbar = () => {
         <button
           onClick={() => setOpen(!open)}
           className={scrolled ? "text-gray-700 md:hidden" : "text-white md:hidden"}
+          aria-label="Toggle Menu"
         >
           {open ? <X size={28} /> : <Menu size={28} />}
         </button>
       </div>
 
       {/* Mobile Dropdown */}
-      {open && (
-        <div
-          className={`md:hidden shadow-lg px-6 py-4 space-y-4 transition-colors duration-300 ${
-            scrolled ? "bg-white/95 backdrop-blur-md" : "bg-white/95 backdrop-blur-md"
-          }`}
-        >
-          {navLinks.map((link) => (
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.25, ease: "easeInOut" }}
+            className={`md:hidden shadow-lg px-6 py-4 space-y-4 transition-colors duration-300 ${
+              scrolled ? "bg-white/95 backdrop-blur-md" : "bg-white/95 backdrop-blur-md"
+            }`}
+          >
+            {navLinks.map((link) => (
+              <Link
+                key={link.name}
+                to={link.to}
+                className="block font-medium text-gray-700 hover:text-indigo-700 transition-colors"
+                onClick={() => setOpen(false)}
+              >
+                {link.name}
+              </Link>
+            ))}
             <Link
-              key={link.name}
-              to={link.to}
-              className="block font-medium text-gray-700 hover:text-indigo-700 transition-colors"
+              to="/give"
+              className="block w-full text-center px-4 py-2 rounded-full bg-indigo-700 text-white font-semibold shadow-md hover:bg-indigo-800 transition-colors"
               onClick={() => setOpen(false)}
             >
-              {link.name}
+              Give
             </Link>
-          ))}
-          <Link
-            to="/give"
-            className="block w-full text-center px-4 py-2 rounded-full bg-indigo-700 text-white font-semibold shadow-md hover:bg-indigo-800 transition-colors"
-            onClick={() => setOpen(false)}
-          >
-            Give
-          </Link>
-        </div>
-      )}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </nav>
   );
 };

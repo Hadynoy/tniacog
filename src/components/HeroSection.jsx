@@ -1,17 +1,16 @@
 import { motion } from "framer-motion";
-import { Button } from "@/components/ui/button";
+import heroImg from "../assets/15.webp";
 
 const Hero = () => {
   return (
     <section
-      className="relative h-screen flex items-center justify-center bg-cover bg-center"
-      style={{
-        backgroundImage:
-          "url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1600&q=80')",
-      }}
+      role="img"
+      aria-label="Hero section showing church community"
+      className="relative h-screen flex items-center justify-center bg-cover bg-center bg-fixed"
+      style={{ backgroundImage: `url(${heroImg})` }}
     >
       {/* Overlay */}
-      <div className="absolute inset-0 bg-black/60"></div>
+      <div className="absolute inset-0 bg-black/60 pointer-events-none" />
 
       {/* Content */}
       <div className="relative z-10 text-center px-6 max-w-3xl">
@@ -37,9 +36,6 @@ const Hero = () => {
         >
           A place where faith, love, and community come together.
         </motion.p>
-
-        
-        
       </div>
     </section>
   );

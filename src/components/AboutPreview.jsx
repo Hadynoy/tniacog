@@ -12,6 +12,9 @@ const AboutPreview = () => {
             src={churchFamily}
             alt="Church family"
             className="rounded-2xl shadow-lg"
+            loading="lazy"             
+            decoding="async"           
+            fetchpriority="low"        
           />
         </div>
 
