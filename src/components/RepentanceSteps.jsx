@@ -52,7 +52,7 @@ const RepentanceSteps = () => {
         icon: <FaPrayingHands size={20} />,
       },
       {
-        step: "Forsake all your old ways and sinful habits",
+        step: "Forsake all your old ways ",
         passage: (
           <>
             <span className="font-semibold">Ephesians 4:22</span> – Put off your old self, which belongs to your former manner of life.
@@ -61,7 +61,7 @@ const RepentanceSteps = () => {
         icon: <FaRegHandPeace size={20} />,
       },
       {
-        step: "Join a Bible believing Church or Worship With Us",
+        step: "Join a Bible believing Church ",
         passage: (
           <>
             <span className="font-semibold">Hebrews 10:25</span> – Do not neglect meeting together, as is the habit of some.
