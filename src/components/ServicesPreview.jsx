@@ -1,5 +1,6 @@
 import tenImg from "../assets/12.jpg";
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 
 const ServicesPreview = () => {
   return (
@@ -20,7 +21,7 @@ const ServicesPreview = () => {
         </p>
 
         {/* Service Times */}
-        <div className="grid md:grid-cols-3 gap-8 text-white">
+        <div className="grid md:grid-cols-3 gap-8 text-white mt-8">
           <div className="p-6 bg-black/40 rounded-2xl shadow-lg hover:shadow-xl transition-shadow">
             <h3 className="text-xl text-white font-heading font-semibold mb-2 drop-shadow-md">
               Sunday School
@@ -44,7 +45,7 @@ const ServicesPreview = () => {
         {/* Button */}
         <div className="mt-12">
           <Button asChild className="rounded-full px-8 py-6 text-base font-semibold">
-            <a href="/services">See More</a>
+            <Link to="/services">See More</Link>
           </Button>
         </div>
       </div>

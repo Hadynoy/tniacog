@@ -1,5 +1,6 @@
 import churchFamily from "../assets/7.jpg";
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 
 const AboutPreview = () => {
   return (
@@ -23,7 +24,7 @@ const AboutPreview = () => {
             our community with the message of Jesus.
           </p>
           <Button asChild className="rounded-full px-6 py-6 text-base font-semibold">
-            <a href="/about">Learn More</a>
+            <Link to="/about">Learn More</Link>
           </Button>
         </div>
       </div>
