@@ -1,28 +1,26 @@
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
+import { Link } from "react-router-dom"; // ✅ Link for client-side routing
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
   const navLinks = [
-    { name: "Home", href: "/" },
-    { name: "About Us", href: "/about" },
-    { name: "Services", href: "/services" },
-    { name: "Sermons", href: "/sermons" },
-    { name: "Gallery", href: "/gallery" },
-    { name: "Contact", href: "/contact" },
+    { name: "Home", to: "/" },
+    { name: "About Us", to: "/about" },
+    { name: "Services", to: "/services" },
+    { name: "Sermons", to: "/sermons" },
+    { name: "Gallery", to: "/gallery" },
+    { name: "Contact", to: "/contact" },
   ];
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
-    };
+    const handleScroll = () => setScrolled(window.scrollY > 50);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Split links for left/right
   const half = Math.ceil(navLinks.length / 2);
   const leftLinks = navLinks.slice(0, half);
   const rightLinks = navLinks.slice(half);
@@ -39,9 +37,9 @@ const Navbar = () => {
         {/* Left Links */}
         <div className="hidden md:flex items-center gap-8">
           {leftLinks.map((link) => (
-            <a
+            <Link
               key={link.name}
-              href={link.href}
+              to={link.to}
               className={`relative font-medium transition-colors after:content-[''] after:absolute after:w-0 after:h-[2px] after:left-0 after:-bottom-1 after:bg-indigo-700 after:transition-all after:duration-300 hover:after:w-full ${
                 scrolled
                   ? "text-gray-700 hover:text-indigo-700"
@@ -49,32 +47,30 @@ const Navbar = () => {
               }`}
             >
               {link.name}
-            </a>
+            </Link>
           ))}
         </div>
 
-       {/* Center Logo */}
-<div className="absolute left-1/2 transform -translate-x-1/2">
-  <a href="/">
-    <span
-      className={`text-3xl tracking-wide transition-colors duration-300 ${
-        scrolled ? "text-indigo-700" : "text-white"
-      }`}
-      style={{ fontFamily: "MorrisRomanBlack, serif" }}
-    >
-      TNIACOG
-    </span>
-  </a>
-</div>
-
-
+        {/* Center Logo */}
+        <div className="absolute left-1/2 transform -translate-x-1/2">
+          <Link to="/">
+            <span
+              className={`text-3xl tracking-wide transition-colors duration-300 ${
+                scrolled ? "text-indigo-700" : "text-white"
+              }`}
+              style={{ fontFamily: "MorrisRomanBlack, serif" }}
+            >
+              TNIACOG
+            </span>
+          </Link>
+        </div>
 
         {/* Right Links */}
         <div className="hidden md:flex items-center gap-8">
           {rightLinks.map((link) => (
-            <a
+            <Link
               key={link.name}
-              href={link.href}
+              to={link.to}
               className={`relative font-medium transition-colors after:content-[''] after:absolute after:w-0 after:h-[2px] after:left-0 after:-bottom-1 after:bg-indigo-700 after:transition-all after:duration-300 hover:after:w-full ${
                 scrolled
                   ? "text-gray-700 hover:text-indigo-700"
@@ -82,10 +78,10 @@ const Navbar = () => {
               }`}
             >
               {link.name}
-            </a>
+            </Link>
           ))}
-          <a
-            href="/give"
+          <Link
+            to="/give"
             className={`ml-4 px-5 py-2 rounded-full font-semibold shadow-md transition-colors ${
               scrolled
                 ? "bg-indigo-700 text-white hover:bg-indigo-800"
@@ -93,7 +89,7 @@ const Navbar = () => {
             }`}
           >
             Give
-          </a>
+          </Link>
         </div>
 
         {/* Mobile Menu Button */}
@@ -113,22 +109,22 @@ const Navbar = () => {
           }`}
         >
           {navLinks.map((link) => (
-            <a
+            <Link
               key={link.name}
-              href={link.href}
+              to={link.to}
               className="block font-medium text-gray-700 hover:text-indigo-700 transition-colors"
               onClick={() => setOpen(false)}
             >
               {link.name}
-            </a>
+            </Link>
           ))}
-          <a
-            href="/give"
+          <Link
+            to="/give"
             className="block w-full text-center px-4 py-2 rounded-full bg-indigo-700 text-white font-semibold shadow-md hover:bg-indigo-800 transition-colors"
             onClick={() => setOpen(false)}
           >
             Give
-          </a>
+          </Link>
         </div>
       )}
     </nav>
