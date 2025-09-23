@@ -1,0 +1,79 @@
+@import "tailwindcss";
+
+/* --------------------------------------------
+   1. Custom Fonts
+--------------------------------------------- */
+@font-face {
+  font-family: 'MorrisRomanBlack';
+  src: url('/fonts/MorrisRoman-Black.ttf') format('truetype');
+  font-weight: 900;
+  font-style: normal;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Lora:wght@400;500;600&display=swap');
+
+/* --------------------------------------------
+   2. Tailwind Theme (v4 @theme)
+--------------------------------------------- */
+@theme {
+  --font-logo: MorrisRomanBlack, serif;
+  --font-heading: Cinzel, serif;
+  --font-body: Lora, serif;
+
+  /* Neutral + Brand Colors */
+  --color-brand: #1E40AF; /* deep royal blue */
+  --color-brand-light: #3B82F6; 
+  --color-brand-dark: #1E3A8A;
+  --color-accent: #F59E0B; /* warm golden accent */
+
+  /* Premium neutral palette */
+  --color-bg: #F9FAFB; /* off-white background */
+  --color-surface: #FFFFFF; /* cards, panels */
+  --color-border: #E5E7EB; /* light border */
+  --color-text: #111827; /* dark neutral text */
+  --color-muted: #6B7280; /* secondary text */
+}
+
+/* --------------------------------------------
+   3. Base Styles (apply to HTML elements)
+--------------------------------------------- */
+@layer base {
+  body {
+    @apply bg-bg text-text font-body antialiased leading-relaxed;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading tracking-tight text-text;
+  }
+
+  h1 { @apply text-5xl font-bold; }
+  h2 { @apply text-4xl font-semibold; }
+  h3 { @apply text-3xl font-semibold; }
+  h4 { @apply text-2xl font-medium; }
+
+  p {
+    @apply text-base text-muted leading-7;
+  }
+
+  a {
+    @apply text-brand hover:text-brand-light transition-colors;
+  }
+}
+
+
+/* --------------------------------------------
+   5. Utilities Override (extra polish)
+--------------------------------------------- */
+@layer utilities {
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-brand to-accent;
+  }
+
+  .section-heading {
+    @apply text-4xl md:text-5xl font-heading font-bold mb-6;
+  }
+
+  .section-sub {
+    @apply text-lg text-muted max-w-2xl mx-auto mb-12;
+  }
+}
